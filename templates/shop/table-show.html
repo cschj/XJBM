@@ -1,0 +1,348 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <!--[if lt IE 9]>
+<script type="text/javascript" src="/static/lib/html5shiv.js"></script>
+<script type="text/javascript" src="/static/lib/respond.min.js"></script>
+<![endif]-->
+    <link rel="stylesheet" type="text/css" href="/static/static/h-ui/css/H-ui.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/static/h-ui.admin/css/H-ui.admin.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/lib/Hui-iconfont/1.0.8/iconfont.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/static/h-ui.admin/skin/default/skin.css" id="skin"/>
+    <link rel="stylesheet" type="text/css" href="/static/static/h-ui.admin/css/style.css"/>
+    <!--[if IE 6]>
+<script type="text/javascript" src="/static/lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+    <title></title>
+    <style>
+        table {
+            table-layout: fixed;
+        }
+
+        td {
+            overflow: hidden;
+            white-space: nowrap;
+            -ms-text-overflow: ellipsis;
+            text-overflow: ellipsis;
+        }
+
+        #DataTables_Table_0_info {
+            display: none;
+        }
+
+        #DataTables_Table_0_length {
+            display: none;
+        }
+
+        #DataTables_Table_0_filter {
+            display: none;
+        }
+
+
+    </style>
+</head>
+<body>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 竞争查询 <span
+        class="c-gray en">&gt;</span> {{ name }}
+{#    <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" onclick=research()#}
+{#                                              href="javascript:;" title="刷新"><i#}
+{#        class="Hui-iconfont">&#xe68f;</i></a>#}
+    <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a>
+</nav>
+<div class="page-container">
+    <div class="text-c">
+        <span class="select-box inline">
+
+        平台：
+		<select class="select" size="1" name="dimension_analysis_id" id="dimension_analysis_id">
+            <option value="虾皮-马来西亚">虾皮-马来西亚</option>
+            <option value="虾皮-台湾">虾皮-台湾</option>
+{#            <option value="3">3</option>#}
+{#            <option value="4">4</option>#}
+{#            <option value="5">5</option>#}
+{#            <option value="6">6</option>#}
+{#            <option value="7">7</option>#}
+
+{#                    <option value="" selected></option>#}
+{#            {% for tag in dim_ana_list %}#}
+{#                <option value="{{ tag.id }}">{{ tag.name }}</option>#}
+{#            {% endfor %}#}
+                </select>
+
+{#        终端类型：#}
+{#        <select class="select" size="1" name="dimension_terminal_id" id="dimension_terminal_id">#}
+{#                    <option value="" selected>不区分</option>#}
+{#            {% for tag in dim_term_list %}#}
+{#                <option value="{{ tag.id }}">{{ tag.name }}</option>#}
+{#            {% endfor %}#}
+{#                </select>#}
+{#        时间维度：#}
+{#        <select class="select" size="1" name="dimension_time_id" id="dimension_time_id">#}
+{#                    <option value="" selected>不区分</option>#}
+{#            {% for tag in dim_time_list %}#}
+{#                <option value="{{ tag.id }}">{{ tag.name }}</option>#}
+{#            {% endfor %}#}
+{#                </select>#}
+{#        主题：#}
+{#        <select class="select" size="1" name="dimension_theme_id" id="dimension_theme_id">#}
+{#                    <option value="" selected>不区分</option>#}
+{#            {% for tag in theme_list %}#}
+{#                <option value="{{ tag.id }}">{{ tag.name }}</option>#}
+{#            {% endfor %}#}
+{#                </select>#}
+		</span>
+        {#        搜索：#}
+        {#        <input type="text" onfocus="WdatePicker({ maxDate:'#F{$dp.$D(\'logmax\')||\'%y-%M-%d\'}' })" id="logmin" class="input-text Wdate" style="width:120px;">#}
+        {#        -#}
+        {#        <input type="text" onfocus="WdatePicker({ minDate:'#F{$dp.$D(\'logmin\')}',maxDate:'%y-%M-%d' })" id="logmax" class="input-text Wdate"#}
+        {#               style="width:120px;">#}
+        <input type="hidden" class="input-text" value="{{ dimid }}"  id="dimension_source_id" >
+        <input type="text" name="" id="search_word" placeholder=" 请输入店铺url或店铺名称" style="width:250px" class="input-text">
+        <button name="" id="search_data" class="btn btn-success" type="submit"><i class="Hui-iconfont">&#xe665;</i> 搜索
+        </button>
+    </div>
+
+    <div class="price_top2">
+                    <table cellpadding="0" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>店铺月销量(件)</th>
+                                <th>估算销售额(元)</th>
+                                <th>总商品数</th>
+                                <th>均价</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="sale_data">
+                                <td>{{ sale_analysis.sale_num }}</td>
+{#                                <td>￥{{ sale_analysis.sale_money|money_format }}</td>#}
+                                <td>{{ sale_analysis.goods_num }}</td>
+{#                                <td>{{ sale_analysis.dynamic }}%</td>#}
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+
+    <div class="cl pd-5 bg-1 bk-gray mt-20"><span class="l">
+{#    <a href="javascript:;" id="data_add"  class="btn btn-danger radius" onclick=add({{ dimid }})>新增</a>#}
+
+    </span>
+        <span class="r">共有商品：<strong id="data_count">0</strong> 个</span></div>
+    <div class="mt-20">
+        {#        <form name="punchout_form" method="post" action="https://openapi.alipay.com/gateway.do?charset=utf-8&method=alipay.trade.page.pay&sign=O0Ri6OoKOL%2BBtX7XoFzPAW9HSe7b9vbz5wfcjKkXTtT8b%2BtqIeppVAGhV9CDT7VFXwVHdcjMczTf88kRlm2V1cJulo5dGC%2F0sKQy7flkr4I2QXnpIthjS6v5nSo9hZo%2FC6lvYqBHk2X3i2SuQeLPpUZ10khlxGvFKSFs9hmjzvAWWMsFrwfVxUoymTUfy048yuYTt5GDaHsqzWwrWfv%2FH%2F23%2BX3FIcDj%2Bj78mFDZjrBnJ4SNNY6fwaR%2B9qmqR0dudHfKamAjifzsHM0YuNv2Wu21tTzL627cDyPp%2FA6sYOFvErbfH%2FNqZThEeik4lDC7xZRkdmPFQl64O4epCcqi3Q%3D%3D&return_url=http%3A%2F%2Fdomain.com%2FCallBack%2Freturn_url.jsp&notify_url=http%3A%2F%2Fdomain.com%2FCallBack%2Fnotify_url.jsp&version=1.0&app_id=2018012302041409&sign_type=RSA2&timestamp=2018-01-23+18%3A09%3A18&alipay_sdk=alipay-sdk-java-dynamicVersionNo&format=json">#}
+        {#<input type="hidden" name="biz_content" value="{    &quot;out_trade_no&quot;:&quot;20150320010101001&quot;,    &quot;product_code&quot;:&quot;FAST_INSTANT_TRADE_PAY&quot;,    &quot;total_amount&quot;:88.88,    &quot;subject&quot;:&quot;Iphone6 16G&quot;,    &quot;body&quot;:&quot;Iphone6 16G&quot;,    &quot;passback_params&quot;:&quot;merchantBizType%3d3C%26merchantBizNo%3d2016010101111&quot;,    &quot;extend_params&quot;:{    &quot;sys_service_provider_id&quot;:&quot;2088511833207846&quot;    }  }">#}
+        {#<input type="submit" value="立即支付" style="display:none" >#}
+        {#</form>#}
+
+        <table class="table table-border table-bordered table-hover table-bg table-sort">
+            <thead>
+            {#            <img src="/static/temp/big/chufang.jpg" alt="logo"/>#}
+
+            <tr class="text-c">
+{#                <th width="25"><input type="checkbox" name="" value=""></th>#}
+                <th width="80">ID</th>
+                <th width="120">宝贝名称</th>
+                <th width="80">宝贝销量</th>
+            </tr>
+            </thead>
+            <tbody id="tbody">
+
+
+            </tbody>
+        </table>
+
+{#        <!-- 如果当前是第一页，就不显示【上一页】链接 -->#}
+{#        {% ifnotequal curPage 1 %}#}
+{#            <a href="?curPage={{ curPage }}&&allPage={{ allPage }}&&pageType=pageUp">#}
+{#                上一页#}
+{#            </a>#}
+{#        {% endifnotequal %}#}
+{##}
+{#        第{{ curPage }}/{{ allPage }}页#}
+{##}
+{#         <!-- 如果当前是最后一页，就不显示【下一页】链接 -->#}
+{#        {% ifnotequal curPage allPage %}#}
+{#            <a href="?curPage={{ curPage }}&&allPage={{ allPage }}&&pageType=pageDown">#}
+{#                下一页#}
+{#            </a>#}
+{#        {% endifnotequal %}#}
+
+    </div>
+</div>
+<!--_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="/static/lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="/static/lib/layer/2.4/layer.js"></script>
+<script type="text/javascript" src="/static/static/h-ui/js/H-ui.min.js"></script>
+<script type="text/javascript" src="/static/static/h-ui.admin/js/H-ui.admin.js"></script>
+<!--/_footer 作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="/static/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript" src="/static/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="/static/lib/laypage/1.2/laypage.js"></script>
+<script type="text/javascript">
+    $(function () {
+        {#        $('.table-sort').dataTable({#}
+        {#            "aaSorting": [[1, "desc"]],//默认第几个排序#}
+        {#            "bStateSave": true,//状态保存#}
+        {#            "aoColumnDefs": [#}
+        {#                //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示#}
+        {#                {"orderable": false, "aTargets": [0, 8, 9]}// 制定列不参与排序#}
+        {#            ]#}
+        {#        });#}
+
+    });
+
+
+{#    window.onload = function () {#}
+{#        document.getElementById("search_data").click();#}
+{#    }#}
+{##}
+{#    function research() {#}
+{#        document.getElementById("search_data").click();#}
+{#    }#}
+
+
+    /*新增*/
+    function add(dimension_source_id) {
+        console.log(dimension_source_id)
+        var url = "data_add?id=" + dimension_source_id;
+{#        var url = "www.baidu.com";#}
+
+        layer_show("新增", url, "800", "800");
+
+
+    };
+
+
+    function addRows() {
+{#            //记录总共添加几行#}
+{#            document.getElementById("reC").value = parseInt(document.getElementById("reC").value) + 1;//获取中的行数#}
+{##}
+{#            //添加一行#}
+{#            var i = parseInt(myTable.rows.length);#}
+            var i = 1;
+
+            var newTr = tbody.insertRow();
+            //添加列
+            var newTd0 = newTr.insertCell();
+            var newTd1 = newTr.insertCell();
+            var newTd2 = newTr.insertCell();
+            //设置列内容和属性
+
+            newTd0.innerHTML = '<input type="text" id="dpDate' + i + '_dpDate' + i + '" style="width:98%;" title="车型" value="" />';
+            newTd1.innerHTML = '<input type="text" id="txtR' + i + '_1" style="width:98%;" title="数量"  value=""/>';
+
+            newTd2.innerHTML = '<input type="submit" class="btn btn-mini btn-warning"  value="删除该行" onclick="deleRow()" id="btnDele' + i + '" />';
+//            saveTableValue();//保存值
+{#            return false;#}
+        }
+
+
+
+
+    $("#search_data").click(function () {
+        var shop_name = "yangyangjm.my";
+        $.get("/shop/vie_search/", {
+            'shop_name':shop_name,
+        }, function (result) {
+            console.log(result);
+
+            data = result.data;
+{#            console.log('aa')#}
+            console.log(data);
+{##}
+{#            data = JSON.parse(data);#}
+{##}
+{#            $('#data_count').text(data.length)#}
+
+            tabHtmls = "";
+
+{#            console.log(eval("("+data+")")[0]);#}
+{##}
+{#            console.log(JSON.parse(data)[0]);#}
+
+
+            for (var i = 0; i < data.length; i++) {
+
+
+                tabHtmls += '<tr class="text-c"> \n' +
+{#                    '					<td><input type="checkbox" value="" name=""></td>' +#}
+                    '					<td title="' + 1 + '</td>' +
+                    '					<td class="text-l" title="' + 2 + '"><u style="cursor:pointer" class="text-primary"  title="查看"> ' + 2 + '</td>' +
+                    '					<td title="' + 3 + '">' + 3 + '</td> ' +
+
+                    '				</tr>';
+            }
+
+            $("#tbody").append(tabHtmls);
+{#            addRows();#}
+
+{#            pagHtml= "";#}
+{##}
+{#            $("#page").html(pagHtml);#}
+        })
+
+
+    })
+
+{#    $(tbody).html(tabHtmls);#}
+
+    /*修改*/
+    function upd(id) {
+        console.log(id)
+{#        alert(id)#}
+        var url = "data_update?id=" + id;
+
+        layer_show("修改", url, "800", "800");
+
+{#        alert("hello");#}
+
+    };
+
+    /*表介绍*/
+    function intro(table_id) {
+{#        alert(id)#}
+        var url = "data_intro_ajax?table_id=" + table_id;
+
+        layer_show("表介绍", url, "1600", "800");
+
+    };
+
+    /*删除*/
+    function dele(id) {
+{#        alert(id);#}
+        var table_id = id;
+        {#                data_del("删除","data_del","800","800");#}
+        layer.confirm('确认要删除吗？', function () {
+            $.get("data_del_ajax", {
+            'id': table_id,
+        }, function (data) {
+{#                alert(data.result);#}
+                if(data.result == 1 ){
+                    layer.msg('删除成功!', {icon: 1, time: 2000});
+                    document.getElementById("search_data").click();
+{#                    window.parent.research();#}
+                }else{
+                    layer.msg('删除失败!', {icon: 1, time: 2000});
+                    document.getElementById("search_data").click();
+{#                    window.parent.research();#}
+                }
+
+            });
+
+
+        });
+    };
+
+</script>
+</body>
+</html>

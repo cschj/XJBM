@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script type="text/javascript" src="/static/lib/jquery/1.9.1/jquery.min.js"></script>
+<script>
+
+    document.cookie="user_name="+'admin'+";path=/;";
+{#    document.cookie="user_name="+'12'+";path=/;";#}
+{#     var cookie = setCookie("user_name", "17", "30");#}
+
+        $.ajax({
+                headers: setCookie("user_id", "17", "30"),
+                url: "http://192.168.3.107:8000/shop/goods/?page=2",
+                data: {
+                    // 'cookies':
+                },
+                xhrFields: {
+                    withCredentials: true
+                },
+                type: "GET",
+{#                dataType: "jsonp",#}
+                // crossDomain: true, //是否跨域:是
+                // jsonp: "jsoncallback", //callback或者jsoncallback或者jsonpcallback;传递给请求处理程序或页面的，用以获得jsonp回调函数名的参数名(一般默认为:callback)
+                // jsonpCallback: "my", //自定义jsonp回调函数名称,可以随意起名，或者根据项目规范命名,
+                success: function(json) {
+                    console.log(json)
+                        // if (json.msg == 'OK' && json.code == "0") {
+                        //     var html = JSON.stringify(json.data);
+                        //     $("#result").html(html);
+                        // }
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown) {
+                    console.log(XMLHttpRequest.status);
+                    console.log(XMLHttpRequest.readyState);
+                    console.log(textStatus);
+                }
+            })
+            //设置cookie
+        function setCookie(cname, cvalue, exdays) {
+            var d = new Date();
+            d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+            var expires = "expires=" + d.toUTCString();
+            document.cookie = cname + "=" + cvalue + ";path=/; " + expires;
+        };
+
+</script>
+
+
+
+</html>
