@@ -226,15 +226,50 @@ def qsort(L):
 #endregion
 
 
-#region
+#region 说出下面list1,list2,list3的输出值
+# def extendList(val, list=[]):
+def extendList(val, list=None):
+
+    if list is None:
+        list = []
+
+    list.append(val)
+
+    return list
+
+def listtest2():
+    list1 = extendList(10)
+
+    list2 = extendList(123, [2,'b'])
+
+    list3 = extendList('a')
+
+    print(list1)
+    print(list2)
+    print(list3)
 
 
 #endregion
 
 
-#region
+#region 写出你认为最Pythonic的代码
+# Pythonic编程风格是Python的一种追求的风格，精髓就是追求直观，简洁而容易读.
+def pythonic():
+    a= 1
+    b =2
+    a, b = b, a
+    c,d = a,b
 
+    print(a,b)
+    print(c,d)
 
+# zip创建键值对
+def ziptest():
+    keys = ['Name', 'Sex', 'Age']
+
+    values = ['Jack', 'Male', 23]
+
+    print(dict(zip(keys, values)) )
 #endregion
 
 #endregion
@@ -247,4 +282,8 @@ if __name__ == '__main__':
     # maopao()
     # duixiang()
     # string_reverse2()
-    listtest()
+    # listtest()
+    # listtest2()
+    # pythonic()
+
+    ziptest()
