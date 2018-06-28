@@ -49,7 +49,16 @@ def logic1():
 
 #endregion
 
+#region 引用
+def fun(a):
+    a = 2
+def func4():
+    a = 1
+    fun(a)
 
+    print(a)
+
+#endregion
 
 
 #endregion
@@ -57,4 +66,4 @@ def logic1():
 if __name__ == '__main__':
     pass
 
-    func3()
+    func4()
