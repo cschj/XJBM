@@ -58,6 +58,9 @@ def lambdatest():
 
 #region 冒泡排序
 def maopao():
+    n = int(input("please enter the number："))
+    print(n)
+
     list = [2,34,78,23,11,0,3]
     leng = len(list)
 
@@ -67,9 +70,12 @@ def maopao():
             b = list[j+1]
 
             if a > b:
-                tmp = a
-                list[j] = b
-                list[j + 1] = tmp
+                # tmp = a
+                # list[j] = b
+                # list[j + 1] = tmp
+
+                list[j],list[j + 1] = b,a
+
 
 
     print(list)
@@ -279,11 +285,11 @@ if __name__ == '__main__':
     # keyvaluetest()
     # lambdatest()
 
-    # maopao()
+    maopao()
     # duixiang()
     # string_reverse2()
     # listtest()
     # listtest2()
     # pythonic()
 
-    ziptest()
+    # ziptest()
